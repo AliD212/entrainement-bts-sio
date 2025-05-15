@@ -1,18 +1,25 @@
 <?php
-session_start();
 
-// Récupérer les utilisateurs
-$users = isset($_SESSION['users']) ? $_SESSION['users'] : [];
+session_start();
+$users = $_SESSION['users'];
+$user_delete = $_POST['user'];
+
+function search_user(&$tableau_user)
+{
+    $user_delete = $_POST['user'];
+    foreach ($tableau_user as $key => &$user) {
+
+        if ($user['name'] == $user_delete) {
+            echo "L'utilisateur " . $user['name'] . " à était supprimer";
+            unset($tableau_user[$key]);
+            $tableau_user = $tableau_user;
+            return 1;
+        }
+    }
+}
+search_user($users);
 
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des utilisateurs</title>
-</head>
 
 <body>
 
@@ -31,11 +38,9 @@ $users = isset($_SESSION['users']) ? $_SESSION['users'] : [];
 
     <p><a href="index.php">Retour à l'ajout d'un utilisateur</a></p>
 
-    <form action="bouton.php" method="POST" name="supprimer">
-        <input type="text" name="utilisateur"></label>
+    <form action="users.php" method="POST" name="supprimer">
+        <input type="text" name="user">
         <button type="submit">Supprimer</button>
     </form>
 
 </body>
-
-</html>
