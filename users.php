@@ -2,23 +2,6 @@
 
 session_start();
 $users = $_SESSION['users'];
-$user_delete = $_POST['user'];
-
-function search_user(&$tableau_user)
-{
-    $user_delete = $_POST['user'];
-    foreach ($tableau_user as $key => &$user) {
-
-        if ($user['name'] == $user_delete) {
-            echo "L'utilisateur " . $user['name'] . " à était supprimer";
-            unset($tableau_user[$key]);
-            $tableau_user = $tableau_user;
-            return 1;
-        }
-    }
-}
-search_user($users);
-
 ?>
 
 <body>
@@ -38,7 +21,7 @@ search_user($users);
 
     <p><a href="index.php">Retour à l'ajout d'un utilisateur</a></p>
 
-    <form action="users.php" method="POST" name="supprimer">
+    <form action="consignes.php" method="POST" name="supprimer">
         <input type="text" name="user">
         <button type="submit">Supprimer</button>
     </form>
