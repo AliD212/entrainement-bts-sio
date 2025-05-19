@@ -60,6 +60,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Ajouter</button>
     </form>
 
+    <h1>Trouver un utilisateur</h1>
+
+    <form method="POST" action="search_user.php">
+        <label for="name">Email :</label>
+        <input type="text" name="email" required>
+        <br>
+        <button type="submit">Chercher</button>
+    </form>
+
+
+
     <p><a href="users.php">Voir la liste des utilisateurs</a></p>
 
 </body>
