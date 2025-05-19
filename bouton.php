@@ -10,6 +10,10 @@ function delete_user()
                 echo "L'utilisateur " . $user['name'] . " à était supprimer";
                 unset($tableau_user[$key]);
                 return 1;
+            } elseif ($user['email'] == $user_delete) {
+                echo "L'utilisateur " . $user['name'] . " à était supprimer";
+                unset($tableau_user[$key]);
+                return 1;
             }
         }
     }
