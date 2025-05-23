@@ -2,22 +2,50 @@
 
 session_start();
 $users = $_SESSION['users'];
+$bd = new PDO('mysql:host=localhost;dbname=bd', 'root', '');
+$max_id = "select max(id) from user";
+$resultat_id = $bd->query($max_id);
+$resultat_id = $resultat_id->fetchAll();
+$resultat_id = $resultat_id[0];
 ?>
 
 <body>
 
     <h1>Liste des utilisateurs</h1>
+    <ul>
+        <?php
+        $select_user_nom = "select nom from user where id = '12'";
+        $resultat_nom = $bd->query($select_user_nom);
+        $resultat_nom = $resultat_nom->fetchAll();
+        $resultat_nom = $resultat_nom[0];
 
-    <?php if (empty($users)): ?>
-        <p>Aucun utilisateur ajouté.</p>
-    <?php else: ?>
-        <ul>
-            <?php foreach ($users as $user): ?>
-                <li><?php echo $user['name']; ?> - <?php echo $user['email']; ?></li>
 
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
+        if ($resultat_nom == NULL) {
+            echo "Aucun utilisateur trouver";
+        }
+
+
+        $cpt = 0;
+        while ($cpt < $resultat_id[0]) {
+            $cpt = $cpt + 1;
+
+
+            $select_user_nom = "select nom from user where id = '$cpt'";
+            $resultat_nom = $bd->query($select_user_nom);
+            $resultat_nom = $resultat_nom->fetchAll();
+            $resultat_nom = $resultat_nom[0];
+
+            $select_user_email = "select email from user where id = '$cpt'";
+            $resultat_email = $bd->query($select_user_email);
+            $resultat_email = $resultat_email->fetchAll();
+            $resultat_email = $resultat_email[0];
+
+            echo "<li>", $resultat_nom['nom'], " - ", $resultat_email['email'], "</li>";
+        } ?>
+
+        <?php  ?>
+    </ul>
+    <?php  ?>
 
     <p><a href="index.php">Retour à l'ajout d'un utilisateur</a></p>
 
