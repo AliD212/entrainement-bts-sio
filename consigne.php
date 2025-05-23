@@ -32,6 +32,13 @@
 //   - Lorsque le formulaire est soumis, utiliser un bouton ou un lien pour rediriger l'utilisateur vers `edit.php` où les informations sont mises à jour dans la session.
 //   - Assurer que l'utilisateur peut modifier le nom et l'email.
 
+
+// Les exercices 1 et 2 on était fait 
+//----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
 // 3. **Recherche d'un utilisateur par e-mail :**
 //    - Ajouter un champ de recherche dans `index.php` ou `users.php`.
 //    - Quand un e-mail est saisi et soumis, afficher uniquement l'utilisateur correspondant dans la liste.
