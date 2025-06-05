@@ -1,8 +1,9 @@
 <?php
 
-session_start();
-$users = $_SESSION['users'];
-$bd = new PDO('mysql:host=localhost;dbname=bd', 'root', '');
+
+require "ClassBD.php";
+$bd = new bd("localhost", "bd", "root", "");
+$bd = $bd->connexionbd($bd);
 $max_id = "select max(id) from user";
 $resultat_id = $bd->query($max_id);
 $resultat_id = $resultat_id->fetchAll();
@@ -14,34 +15,36 @@ $resultat_id = $resultat_id[0];
     <h1>Liste des utilisateurs</h1>
     <ul>
         <?php
-        $select_user_nom = "select nom from user where id = '12'";
+
+
+
+
+        $select_user_nom = "select nom from user";
         $resultat_nom = $bd->query($select_user_nom);
         $resultat_nom = $resultat_nom->fetchAll();
-        $resultat_nom = $resultat_nom[0];
+
 
 
         if ($resultat_nom == NULL) {
             echo "Aucun utilisateur trouver";
+        } else {
+            $cpt = 0;
+            while ($cpt < $resultat_id[0]) {
+                $cpt = $cpt + 1;
+                $select_user_nom = "select nom from user where id = '$cpt'";
+                $resultat_nom = $bd->query($select_user_nom);
+                $resultat_nom = $resultat_nom->fetchAll();
+                $resultat_nom = $resultat_nom[0];
+
+                $select_user_email = "select email from user where id = '$cpt'";
+                $resultat_email = $bd->query($select_user_email);
+                $resultat_email = $resultat_email->fetchAll();
+                $resultat_email = $resultat_email[0];
+
+                echo "<li>", $resultat_nom['nom'], " - ", $resultat_email['email'], "</li>";
+            }
         }
-
-
-        $cpt = 0;
-        while ($cpt < $resultat_id[0]) {
-            $cpt = $cpt + 1;
-
-
-            $select_user_nom = "select nom from user where id = '$cpt'";
-            $resultat_nom = $bd->query($select_user_nom);
-            $resultat_nom = $resultat_nom->fetchAll();
-            $resultat_nom = $resultat_nom[0];
-
-            $select_user_email = "select email from user where id = '$cpt'";
-            $resultat_email = $bd->query($select_user_email);
-            $resultat_email = $resultat_email->fetchAll();
-            $resultat_email = $resultat_email[0];
-
-            echo "<li>", $resultat_nom['nom'], " - ", $resultat_email['email'], "</li>";
-        } ?>
+        ?>
 
         <?php  ?>
     </ul>
